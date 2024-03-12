@@ -3,6 +3,7 @@
     public interface ICsvSerializer
     {
         string GetCsvContentFrom<T>(T entity) where T : class, new();
+        string GetCsvContentFrom<T>(IEnumerable<T> entities) where T : class, new();
         T GetEntityFrom<T>(string csvContent) where T : class, new();
     }
 }

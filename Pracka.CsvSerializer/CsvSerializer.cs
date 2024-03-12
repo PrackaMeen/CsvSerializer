@@ -9,8 +9,13 @@ namespace Pracka.CsvSerializer
 {
     public class CsvSerializer : ICsvSerializer
     {
-        public string GetCsvContentFrom<T>(T entity) where T : class, new()
+        public string GetCsvContentFrom<T>(T? entity) where T : class, new()
         {
+            if (null == entity)
+            {
+                return GetCsvHeader(new T());
+            }
+
             if (0 == entity.GetType().GetProperties().Length)
             {
                 return string.Empty;
@@ -19,6 +24,25 @@ namespace Pracka.CsvSerializer
             var contentHeader = GetCsvHeader(entity);
             var contentBody = GetCsvBody(entity);
             return $"{contentHeader}{Environment.NewLine}{contentBody}";
+        }
+
+        public string GetCsvContentFrom<T>(IEnumerable<T> entities) where T : class, new()
+        {
+            var contentHeader = GetCsvHeader(new T());
+            if (0 == entities.Count())
+            {
+                return contentHeader;
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(contentHeader);
+
+            foreach (var entity in entities)
+            {
+                stringBuilder.AppendLine(GetCsvBody(entity));
+            }
+
+            return stringBuilder.ToString();
         }
 
         public string GetCsvHeader<T>(T entity) where T : class, new()
