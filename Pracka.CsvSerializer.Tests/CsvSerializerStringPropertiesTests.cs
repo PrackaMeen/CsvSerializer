@@ -2,7 +2,7 @@ using Pracka.CsvSerializer.Abstractions;
 
 namespace Pracka.CsvSerializer.Tests
 {
-    public class CsvSerializerTests
+    public class CsvSerializerStringPropertiesTests
     {
         [Fact]
         public void Not_Null_Entity_Without_Properties_Has_Empty_Content()
@@ -64,11 +64,12 @@ namespace Pracka.CsvSerializer.Tests
             var entityWithExactOneProperty = new EntityWithExactOneProperty();
 
             var content = csvSerializer.GetCsvContentFrom(entityWithExactOneProperty);
+            var contentHeader = content.Split(Environment.NewLine)[0];
 
-            var expectedContentHeader = $"Property{Environment.NewLine}";
+            var expectedContentHeader = $"Property";
 
             Assert.NotNull(content);
-            Assert.Equal(expectedContentHeader, content);
+            Assert.Equal(expectedContentHeader, contentHeader);
         }
 
         [Fact]
@@ -82,11 +83,12 @@ namespace Pracka.CsvSerializer.Tests
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithExactOneProperty);
+            var contentHeader = content.Split(Environment.NewLine)[0];
 
-            var expectedContentHeader = $"Property{Environment.NewLine}PropertyValue";
+            var expectedContentHeader = $"Property";
 
             Assert.NotNull(content);
-            Assert.Equal(expectedContentHeader, content);
+            Assert.Equal(expectedContentHeader, contentHeader);
         }
 
         [Fact]
@@ -97,11 +99,12 @@ namespace Pracka.CsvSerializer.Tests
             var entityWithMultipleProperties = new EntityWithMultipleProperties();
 
             var content = csvSerializer.GetCsvContentFrom(entityWithMultipleProperties);
+            var contentHeader = content.Split(Environment.NewLine)[0];
 
-            var expectedContentHeader = $"Property1,Property2,Property3{Environment.NewLine},,";
+            var expectedContentHeader = $"Property1,Property2,Property3";
 
             Assert.NotNull(content);
-            Assert.Equal(expectedContentHeader, content);
+            Assert.Equal(expectedContentHeader, contentHeader);
         }
 
         [Fact]
@@ -117,11 +120,27 @@ namespace Pracka.CsvSerializer.Tests
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithMultipleProperties);
+            var contentHeader = content.Split(Environment.NewLine)[0];
 
-            var expectedContentHeader = $"Property1,Property2,Property3{Environment.NewLine}Property1Value,Property2Value,Property3Value";
+            var expectedContentHeader = $"Property1,Property2,Property3";
 
             Assert.NotNull(content);
-            Assert.Equal(expectedContentHeader, content);
+            Assert.Equal(expectedContentHeader, contentHeader);
+        }
+
+        [Fact]
+        public void Entity_With_Exact_One_Default_Property_Content_Is_Valid()
+        {
+            ICsvSerializer csvSerializer = new CsvSerializer();
+
+            var entityWithExactOneProperty = new EntityWithExactOneProperty();
+
+            var content = csvSerializer.GetCsvContentFrom(entityWithExactOneProperty);
+
+            var expectedContent = $"Property{Environment.NewLine}";
+
+            Assert.NotNull(content);
+            Assert.Equal(expectedContent, content);
         }
 
         [Fact]
@@ -143,23 +162,58 @@ namespace Pracka.CsvSerializer.Tests
         }
 
         [Fact]
+        public void Entity_With_Multiple_Default_Properties_Content_Is_Valid()
+        {
+            ICsvSerializer csvSerializer = new CsvSerializer();
+
+            var entityWithMultipleProperties = new EntityWithMultipleProperties();
+
+            var content = csvSerializer.GetCsvContentFrom(entityWithMultipleProperties);
+
+            var expectedContent = $"Property1,Property2,Property3{Environment.NewLine},,";
+
+            Assert.NotNull(content);
+            Assert.Equal(expectedContent, content);
+        }
+
+        [Fact]
         public void Entity_With_Multiple_Initialized_Properties_Content_Is_Valid()
         {
             ICsvSerializer csvSerializer = new CsvSerializer();
 
             var entityWithMultipleProperties = new EntityWithMultipleProperties()
             {
-                Property1 = "Property1Value",
+                Property1 = "",
                 Property2 = "Property2Value",
-                Property3 = "Property3Value"
+                Property3 = null
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithMultipleProperties);
 
-            var expectedContent = $"Property1,Property2,Property3{Environment.NewLine}Property1Value,Property2Value,Property3Value";
+            var expectedContent = $"Property1,Property2,Property3{Environment.NewLine},Property2Value,";
 
             Assert.NotNull(content);
             Assert.Equal(expectedContent, content);
+        }
+
+        [Fact]
+        public void GetValueAsString_Is_Valid()
+        {
+            string? valueToTest = "test";
+            CsvSerializer csvSerializer = new CsvSerializer();
+            var stringValue = csvSerializer.GetValueAsString(valueToTest);
+
+            Assert.Equal("test", stringValue);
+        }
+
+        [Fact]
+        public void GetValueAsString_Null_Is_Valid()
+        {
+            string? valueToTest = null;
+            CsvSerializer csvSerializer = new CsvSerializer();
+            var stringValue = csvSerializer.GetValueAsString(valueToTest);
+
+            Assert.Equal(string.Empty, stringValue);
         }
 
         private class EntityWithoutProperties
@@ -169,14 +223,14 @@ namespace Pracka.CsvSerializer.Tests
 
         private class EntityWithExactOneProperty
         {
-            public string Property { get; set; }
+            public string? Property { get; set; }
         }
 
         private class EntityWithMultipleProperties
         {
-            public string Property1 { get; set; }
+            public string? Property1 { get; set; }
             public string Property2 { get; set; }
-            public string Property3 { get; set; }
+            public string? Property3 { get; set; }
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Pracka.CsvSerializer
                   .GetType()
                   .GetProperties()
                   .Select((property) => property.GetValue(entity))
-                  .Select((value) => value?.ToString());
+                  .Select(GetValueAsString);
 
             if (propertyValues.Any())
             {
@@ -52,6 +52,16 @@ namespace Pracka.CsvSerializer
             }
 
             return string.Empty;
+        }
+
+        public string GetValueAsString(object? value)
+        {
+            if (value is null)
+            {
+                return string.Empty;
+            }
+
+            return value.ToString();
         }
 
         public T GetEntityFrom<T>(string csvContent) where T : class, new()
