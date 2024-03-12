@@ -11,12 +11,47 @@ namespace Pracka.CsvSerializer
     {
         public string GetCsvContentFrom<T>(T entity) where T : class, new()
         {
-            if(0 == entity.GetType().GetProperties().Length)
+            if (0 == entity.GetType().GetProperties().Length)
             {
                 return string.Empty;
             }
 
-            return $"{Environment.NewLine}";
+            var contentHeader = GetCsvHeader(entity);
+            var contentBody = GetCsvBody(entity);
+            return $"{contentHeader}{Environment.NewLine}{contentBody}";
+        }
+
+        public string GetCsvHeader<T>(T entity) where T : class, new()
+        {
+            var propertyNames = entity
+                  .GetType()
+                  .GetProperties()
+                  .Select((property) => property.Name);
+
+            if (propertyNames.Any())
+            {
+                return propertyNames
+                    .Aggregate((previous, current) => $"{previous},{current}");
+            }
+
+            return string.Empty;
+        }
+
+        public string GetCsvBody<T>(T entity) where T : class, new()
+        {
+            var propertyValues = entity
+                  .GetType()
+                  .GetProperties()
+                  .Select((property) => property.GetValue(entity))
+                  .Select((value) => value?.ToString());
+
+            if (propertyValues.Any())
+            {
+                return propertyValues
+                    .Aggregate((previous, current) => $"{previous},{current}");
+            }
+
+            return string.Empty;
         }
 
         public T GetEntityFrom<T>(string csvContent) where T : class, new()
