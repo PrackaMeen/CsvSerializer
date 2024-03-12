@@ -16,7 +16,7 @@ namespace Pracka.CsvSerializer
                 return string.Empty;
             }
 
-            throw new NotImplementedException();
+            return $"{Environment.NewLine}";
         }
 
         public T GetEntityFrom<T>(string csvContent) where T : class, new()
