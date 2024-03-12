@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pracka.CsvSerializer\Pracka.CsvSerializer.csproj" />
+  </ItemGroup>
+
 </Project>
