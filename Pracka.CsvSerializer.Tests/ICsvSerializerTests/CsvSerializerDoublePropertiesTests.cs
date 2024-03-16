@@ -1,8 +1,8 @@
 using Pracka.CsvSerializer.Abstractions;
 
-namespace Pracka.CsvSerializer.Tests
+namespace Pracka.CsvSerializer.Tests.ICsvSerializerTests
 {
-    public class CsvSerializerStringPropertiesTests
+    public class CsvSerializerDoublePropertiesTests
     {
         [Fact]
         public void Not_Null_Entity_Without_Properties_Has_Empty_Content()
@@ -79,7 +79,7 @@ namespace Pracka.CsvSerializer.Tests
 
             var entityWithExactOneProperty = new EntityWithExactOneProperty()
             {
-                Property = "PropertyValue"
+                Property = double.MinValue
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithExactOneProperty);
@@ -114,9 +114,9 @@ namespace Pracka.CsvSerializer.Tests
 
             var entityWithMultipleProperties = new EntityWithMultipleProperties()
             {
-                Property1 = "Property1Value",
-                Property2 = "Property2Value",
-                Property3 = "Property3Value"
+                Property1 = 1.234,
+                Property2 = 2.34,
+                Property3 = 3.4
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithMultipleProperties);
@@ -150,12 +150,12 @@ namespace Pracka.CsvSerializer.Tests
 
             var entityWithExactOneProperty = new EntityWithExactOneProperty()
             {
-                Property = "PropertyValue"
+                Property = double.MinValue
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithExactOneProperty);
 
-            var expectedContent = $"Property{Environment.NewLine}PropertyValue";
+            var expectedContent = $"Property{Environment.NewLine}{double.MinValue}";
 
             Assert.NotNull(content);
             Assert.Equal(expectedContent, content);
@@ -170,7 +170,7 @@ namespace Pracka.CsvSerializer.Tests
 
             var content = csvSerializer.GetCsvContentFrom(entityWithMultipleProperties);
 
-            var expectedContent = $"Property1,Property2,Property3{Environment.NewLine},,";
+            var expectedContent = $"Property1,Property2,Property3{Environment.NewLine},0,";
 
             Assert.NotNull(content);
             Assert.Equal(expectedContent, content);
@@ -183,14 +183,14 @@ namespace Pracka.CsvSerializer.Tests
 
             var entityWithMultipleProperties = new EntityWithMultipleProperties()
             {
-                Property1 = "",
-                Property2 = "Property2Value",
+                Property1 = 1.234,
+                Property2 = 2.34,
                 Property3 = null
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithMultipleProperties);
 
-            var expectedContent = $"Property1,Property2,Property3{Environment.NewLine},Property2Value,";
+            var expectedContent = $"Property1,Property2,Property3{Environment.NewLine}1.234,2.34,";
 
             Assert.NotNull(content);
             Assert.Equal(expectedContent, content);
@@ -199,17 +199,17 @@ namespace Pracka.CsvSerializer.Tests
         [Fact]
         public void GetValueAsString_Is_Valid()
         {
-            string? valueToTest = "test";
+            double? valueToTest = 1d;
             CsvSerializer csvSerializer = new CsvSerializer();
             var stringValue = csvSerializer.GetValueAsString(valueToTest);
 
-            Assert.Equal("test", stringValue);
+            Assert.Equal("1", stringValue);
         }
 
         [Fact]
         public void GetValueAsString_Null_Is_Valid()
         {
-            string? valueToTest = null;
+            double? valueToTest = null;
             CsvSerializer csvSerializer = new CsvSerializer();
             var stringValue = csvSerializer.GetValueAsString(valueToTest);
 
@@ -223,14 +223,14 @@ namespace Pracka.CsvSerializer.Tests
 
         private class EntityWithExactOneProperty
         {
-            public string? Property { get; set; }
+            public double? Property { get; set; }
         }
 
         private class EntityWithMultipleProperties
         {
-            public string? Property1 { get; set; }
-            public string Property2 { get; set; }
-            public string? Property3 { get; set; }
+            public double? Property1 { get; set; }
+            public double Property2 { get; set; }
+            public double? Property3 { get; set; }
         }
     }
 }

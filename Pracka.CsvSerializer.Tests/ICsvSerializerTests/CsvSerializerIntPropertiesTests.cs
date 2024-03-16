@@ -1,6 +1,6 @@
 using Pracka.CsvSerializer.Abstractions;
 
-namespace Pracka.CsvSerializer.Tests
+namespace Pracka.CsvSerializer.Tests.ICsvSerializerTests
 {
     public class CsvSerializerIntPropertiesTests
     {

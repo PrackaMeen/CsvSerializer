@@ -1,8 +1,8 @@
 using Pracka.CsvSerializer.Abstractions;
 
-namespace Pracka.CsvSerializer.Tests
+namespace Pracka.CsvSerializer.Tests.ICsvSerializerTests
 {
-    public class CsvSerializerDoublePropertiesTests
+    public class CsvSerializerDecimalPropertiesTests
     {
         [Fact]
         public void Not_Null_Entity_Without_Properties_Has_Empty_Content()
@@ -79,7 +79,7 @@ namespace Pracka.CsvSerializer.Tests
 
             var entityWithExactOneProperty = new EntityWithExactOneProperty()
             {
-                Property = double.MinValue
+                Property = decimal.MinValue
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithExactOneProperty);
@@ -114,9 +114,9 @@ namespace Pracka.CsvSerializer.Tests
 
             var entityWithMultipleProperties = new EntityWithMultipleProperties()
             {
-                Property1 = 1.234,
-                Property2 = 2.34,
-                Property3 = 3.4
+                Property1 = 1.234M,
+                Property2 = 2.34M,
+                Property3 = null
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithMultipleProperties);
@@ -150,12 +150,12 @@ namespace Pracka.CsvSerializer.Tests
 
             var entityWithExactOneProperty = new EntityWithExactOneProperty()
             {
-                Property = double.MinValue
+                Property = decimal.MinValue
             };
 
             var content = csvSerializer.GetCsvContentFrom(entityWithExactOneProperty);
 
-            var expectedContent = $"Property{Environment.NewLine}{double.MinValue}";
+            var expectedContent = $"Property{Environment.NewLine}{decimal.MinValue}";
 
             Assert.NotNull(content);
             Assert.Equal(expectedContent, content);
@@ -183,8 +183,8 @@ namespace Pracka.CsvSerializer.Tests
 
             var entityWithMultipleProperties = new EntityWithMultipleProperties()
             {
-                Property1 = 1.234,
-                Property2 = 2.34,
+                Property1 = 1.234M,
+                Property2 = 2.34M,
                 Property3 = null
             };
 
@@ -199,7 +199,7 @@ namespace Pracka.CsvSerializer.Tests
         [Fact]
         public void GetValueAsString_Is_Valid()
         {
-            double? valueToTest = 1d;
+            decimal? valueToTest = 1M;
             CsvSerializer csvSerializer = new CsvSerializer();
             var stringValue = csvSerializer.GetValueAsString(valueToTest);
 
@@ -209,7 +209,7 @@ namespace Pracka.CsvSerializer.Tests
         [Fact]
         public void GetValueAsString_Null_Is_Valid()
         {
-            double? valueToTest = null;
+            decimal? valueToTest = null;
             CsvSerializer csvSerializer = new CsvSerializer();
             var stringValue = csvSerializer.GetValueAsString(valueToTest);
 
@@ -223,14 +223,14 @@ namespace Pracka.CsvSerializer.Tests
 
         private class EntityWithExactOneProperty
         {
-            public double? Property { get; set; }
+            public decimal? Property { get; set; }
         }
 
         private class EntityWithMultipleProperties
         {
-            public double? Property1 { get; set; }
-            public double Property2 { get; set; }
-            public double? Property3 { get; set; }
+            public decimal? Property1 { get; set; }
+            public decimal Property2 { get; set; }
+            public decimal? Property3 { get; set; }
         }
     }
 }

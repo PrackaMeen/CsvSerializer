@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pracka.CsvSerializer.Tests
+namespace Pracka.CsvSerializer.Tests.ICsvSerializerTests
 {
     public class CsvSerializerGetCsvContentFromEntities
     {

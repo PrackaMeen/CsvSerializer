@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pracka.CsvSerializer.IO.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pracka.CsvSerializer.IO", "Pracka.CsvSerializer.IO\Pracka.CsvSerializer.IO.csproj", "{96221942-85D6-4F65-BC6D-DED5A56C6EBC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2AFB0510-EF01-4A74-95E7-EE91896EAA33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F0366CE9-2CF4-4555-89F7-AE665B71C67E} = {2AFB0510-EF01-4A74-95E7-EE91896EAA33}
+		{10A79B51-A48F-4C74-A081-1EC3204661F6} = {2AFB0510-EF01-4A74-95E7-EE91896EAA33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4F90F15-A67F-4E07-ACE2-4B803C0EC7D0}
