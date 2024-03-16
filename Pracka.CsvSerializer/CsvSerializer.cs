@@ -1,13 +1,9 @@
 ﻿using Pracka.CsvSerializer.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Pracka.CsvSerializer
 {
-    public class CsvSerializer : ICsvSerializer
+    public class CsvSerializer : ICsvSerializer, ICsvDeserializer
     {
         public string GetCsvContentFrom<T>(T? entity) where T : class, new()
         {
@@ -89,6 +85,11 @@ namespace Pracka.CsvSerializer
         }
 
         public T GetEntityFrom<T>(string csvContent) where T : class, new()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<T> GetEntitiesFrom<T>(string csvContent) where T : class, new()
         {
             throw new NotImplementedException();
         }

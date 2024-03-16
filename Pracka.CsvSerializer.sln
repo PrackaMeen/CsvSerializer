@@ -5,7 +5,11 @@ VisualStudioVersion = 17.9.34321.82
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pracka.CsvSerializer.Tests", "Pracka.CsvSerializer.Tests\Pracka.CsvSerializer.Tests.csproj", "{F0366CE9-2CF4-4555-89F7-AE665B71C67E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pracka.CsvSerializer", "Pracka.CsvSerializer\Pracka.CsvSerializer.csproj", "{DD3DF2A5-3F70-48F2-99E8-F4582D3B0B2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pracka.CsvSerializer", "Pracka.CsvSerializer\Pracka.CsvSerializer.csproj", "{DD3DF2A5-3F70-48F2-99E8-F4582D3B0B2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pracka.CsvSerializer.IO.Tests", "Pracka.CsvSerializer.IO.Tests\Pracka.CsvSerializer.IO.Tests.csproj", "{10A79B51-A48F-4C74-A081-1EC3204661F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pracka.CsvSerializer.IO", "Pracka.CsvSerializer.IO\Pracka.CsvSerializer.IO.csproj", "{96221942-85D6-4F65-BC6D-DED5A56C6EBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{DD3DF2A5-3F70-48F2-99E8-F4582D3B0B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD3DF2A5-3F70-48F2-99E8-F4582D3B0B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD3DF2A5-3F70-48F2-99E8-F4582D3B0B2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10A79B51-A48F-4C74-A081-1EC3204661F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10A79B51-A48F-4C74-A081-1EC3204661F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10A79B51-A48F-4C74-A081-1EC3204661F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10A79B51-A48F-4C74-A081-1EC3204661F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96221942-85D6-4F65-BC6D-DED5A56C6EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96221942-85D6-4F65-BC6D-DED5A56C6EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96221942-85D6-4F65-BC6D-DED5A56C6EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96221942-85D6-4F65-BC6D-DED5A56C6EBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
